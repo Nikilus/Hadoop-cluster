@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven'  
-        jdk 'JAVA 8'   
+        maven 'Maven'
+        jdk 'JAVA 8'
     }
 
     environment {
@@ -13,6 +13,17 @@ pipeline {
     }
 
     stages {
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    sh '''
+                        sudo apt-get update
+                        sudo apt-get install -y protobuf-compiler libprotobuf-dev cmake build-essential libprotobuf-c-dev
+                    '''
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
@@ -21,10 +32,10 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Native Client') {
             steps {
                 script {
-                    //  CMake
+                    // CMake
                     sh '''
                         cmake ${WORKSPACE}/hadoop-hdfs-project/hadoop-hdfs-native-client/src \
                             -DProtobuf_INCLUDE_DIR=${PROTOBUF_INCLUDE_DIR} \
@@ -38,11 +49,16 @@ pipeline {
                             -DREQUIRE_VALGRIND=false \
                             -G "Unix Makefiles"
                     '''
-
-                    // Компиляция с помощью make
+                    
                     sh 'make'
+                }
+            }
+        }
 
-                    // Сборка через Maven
+        stage('Build with Maven') {
+            steps {
+                script {
+                    // Сборка проекта с помощью Maven
                     sh 'mvn clean install -Pdist,native -Drequire.fuse -Dtar -DskipTests'
                 }
             }
@@ -55,6 +71,9 @@ pipeline {
         }
         failure {
             echo 'Build failed.'
+        }
+        cleanup {
+            sh 'rm -rf ${WORKSPACE}/hadoop-hdfs-project/hadoop-hdfs-native-client/target/native'
         }
     }
 }
