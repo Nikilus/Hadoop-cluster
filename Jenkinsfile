@@ -13,17 +13,6 @@ pipeline {
     }
 
     stages {
-        stage('Prepare Environment') {
-            steps {
-                script {
-                    sh '''
-                        sudo apt-get update
-                        sudo apt-get install -y protobuf-compiler libprotobuf-dev cmake build-essential libprotobuf-c-dev
-                    '''
-                }
-            }
-        }
-
         stage('Checkout') {
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
