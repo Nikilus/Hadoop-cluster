@@ -6,11 +6,12 @@ pipeline {
     }
 
     environment {
-        PROTOBUF_INCLUDE_DIR = '/usr/include'
-        PROTOBUF_LIBRARY = '/usr/lib/x86_64-linux-gnu/libprotobuf.so'
-        PROTOC_LIBRARY = '/usr/bin/protoc'
+        PROTOBUF_INCLUDE_DIR = '/usr/local/include'
+        PROTOBUF_LIBRARY = '/usr/local/lib/libprotobuf.so'
+        PROTOC_LIBRARY = '/usr/local/bin/protoc'
         GENERATED_JAVAH = '${WORKSPACE}/hadoop-hdfs-project/hadoop-hdfs-native-client/target/native/javah'
     }
+
 
     stages {
         stage('Checkout') {
