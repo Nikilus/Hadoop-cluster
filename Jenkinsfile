@@ -27,7 +27,7 @@ pipeline {
         stage('Prepare Environment') {
             steps {
                 sh '''
-                sed -i 's|target_link_libraries(protoc-gen-hrpc .*|target_link_libraries(protoc-gen-hrpc protobuf::libprotobuf)|' ./hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/lib/proto/CMakeLists.txt
+                sed -i 's|target_link_libraries(protoc-gen-hrpc .*|target_link_libraries(protoc-gen-hrpc protobuf::libprotobuf protobuf::protoc)|' ./hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/lib/proto/CMakeLists.txt
                 '''
             }
         }
