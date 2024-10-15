@@ -8,7 +8,7 @@ pipeline {
     environment {
         PROTOBUF_INCLUDE_DIR = '/usr/local/include'
         PROTOBUF_LIBRARY = '/usr/local/lib/libprotobuf.so'
-        PROTOC_LIBRARY = '/usr/local/bin/protoc'
+        PROTOC_EXECUTABLE = '/usr/local/bin/protoc'
         GENERATED_JAVAH = '${WORKSPACE}/hadoop-hdfs-project/hadoop-hdfs-native-client/target/native/javah'
     }
 
@@ -30,7 +30,7 @@ pipeline {
                         cmake ${WORKSPACE}/hadoop-hdfs-project/hadoop-hdfs-native-client/src \
                             -DProtobuf_INCLUDE_DIR=${PROTOBUF_INCLUDE_DIR} \
                             -DProtobuf_LIBRARY=${PROTOBUF_LIBRARY} \
-                            -DProtobuf_PROTOC_LIBRARY=${PROTOC_LIBRARY} \
+                            -DProtobuf_PROTOC_LIBRARY=${PROTOC_EXECUTABLE} \
                             -DGENERATED_JAVAH=${GENERATED_JAVAH} \
                             -DHADOOP_BUILD=1 \
                             -DJVM_ARCH_DATA_MODEL=64 \
