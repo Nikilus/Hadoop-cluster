@@ -42,7 +42,7 @@ pipeline {
                             -DProtobuf_INCLUDE_DIR=${PROTOBUF_INCLUDE_DIR} \
                             -DProtobuf_LIBRARY=${PROTOBUF_LIBRARY} \
                             -DProtobuf_PROTOC_LIBRARY=${PROTOC_LIBRARY} \
-                            -DProtobuf_PROTOC_LIBRARY=${PROTOC_EXECUTABLE} \
+                            -DProtobuf_PROTOC_EXECUTABLE=${PROTOC_EXECUTABLE} \
                             -DGENERATED_JAVAH=${GENERATED_JAVAH} \
                             -DHADOOP_BUILD=1 \
                             -DJVM_ARCH_DATA_MODEL=64 \
