@@ -20,6 +20,8 @@ pipeline {
                 sed -i 's|target_link_libraries(protoc-gen-hrpc .*|target_link_libraries(protoc-gen-hrpc protobuf::libprotobuf)|' ./hadoop-hdfs-project/hadoop-hdfs-native-client/src/main/native/libhdfspp/lib/proto/CMakeLists.txt
                 '''
             }
+        }
+        
         stage('Checkout') {
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
